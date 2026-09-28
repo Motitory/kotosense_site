@@ -3,53 +3,157 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KotoSense — 한국어 사용자를 위한 일본어 문형 학습</title>
-<meta name="description" content="한국어로 옮기면 같아지는 일본어 문형의 차이를 이해하고 구별하도록 돕는 학습 앱.">
+<title>KotoSense — 한국어로는 같은데, 일본어에서는 다른 것</title>
+<meta name="description" content="한국어로 옮기면 같아지는 일본어 문형의 차이를 이해하고 구별하도록 돕는 학습 앱. 기초부터 N1까지 문형 423개.">
+<meta property="og:title" content="KotoSense">
+<meta property="og:description" content="한국어로는 같은데, 일본어에서는 다른 것">
+<meta property="og:image" content="./shots/feature.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="./shots/icon.png">
 <style>
-  :root { --route:#3B5BDB; --ink:#171A21; --muted:#767D8C; --line:#E4E8EF; --canvas:#EFF2F7; }
+  :root {
+    --route:#3B5BDB; --done:#0A7A50; --today:#E08C15;
+    --ink:#171A21; --soft:#3C424F; --muted:#767D8C; --line:#E4E8EF; --canvas:#EFF2F7; --card:#fff;
+  }
   * { box-sizing:border-box; margin:0; padding:0 }
   body { font-family:system-ui,-apple-system,"Malgun Gothic",sans-serif; color:var(--ink);
-    background:var(--canvas); line-height:1.7; }
-  .hero { background:linear-gradient(160deg,var(--route),#2F49B4); color:#fff; padding:72px 24px 64px; text-align:center }
-  .hero h1 { font-size:40px; letter-spacing:-1px }
-  .hero p { margin-top:12px; opacity:.92 }
-  main { max-width:720px; margin:0 auto; padding:40px 24px 80px }
-  section { background:#fff; border:1px solid var(--line); border-radius:16px; padding:24px; margin-bottom:20px }
-  h2 { font-size:19px; margin-bottom:10px }
-  ul { margin:8px 0 0 18px }
-  a { color:var(--route) }
-  footer { text-align:center; color:var(--muted); font-size:14px; padding-bottom:48px }
+    background:var(--canvas); line-height:1.7; -webkit-font-smoothing:antialiased }
+  .wrap { max-width:960px; margin:0 auto; padding:0 20px }
+
+  header { background:linear-gradient(160deg,var(--route),#2F49B4); color:#fff; padding:64px 0 72px; text-align:center }
+  header img.logo { width:76px; height:76px; border-radius:20px; margin-bottom:18px }
+  header h1 { font-size:42px; letter-spacing:-1.2px }
+  header p.tag { margin-top:10px; font-size:19px; opacity:.94 }
+  header p.sub { margin-top:18px; font-size:15px; opacity:.82; line-height:1.6 }
+  .badge { display:inline-block; margin-top:26px; padding:10px 18px; border-radius:999px;
+    background:rgba(255,255,255,.16); font-size:14px; font-weight:600 }
+
+  section { padding:56px 0 }
+  h2 { font-size:24px; letter-spacing:-0.6px; margin-bottom:8px }
+  .lead { color:var(--soft); margin-bottom:28px }
+
+  .compare { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px; margin-bottom:16px }
+  .compare .ko { font-weight:700; margin-bottom:12px }
+  .compare table { width:100%; border-collapse:collapse }
+  .compare td { padding:8px 0; vertical-align:top; font-size:15px; border-top:1px solid var(--line) }
+  .compare td:first-child { width:190px; font-weight:700; white-space:nowrap; padding-right:16px }
+  .compare tr:first-child td { border-top:none }
+
+  .shots { display:grid; grid-template-columns:repeat(3,1fr); gap:20px }
+  .shot { background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden }
+  .shot img { display:block; width:100%; border-bottom:1px solid var(--line) }
+  .shot p { padding:12px 14px; font-size:14px; color:var(--soft) }
+
+  .cards { display:grid; grid-template-columns:repeat(2,1fr); gap:16px }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px }
+  .card h3 { font-size:17px; margin-bottom:6px }
+  .card p { font-size:15px; color:var(--soft) }
+  .dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:8px }
+
+  .note { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--today);
+    border-radius:12px; padding:18px 20px; font-size:15px; color:var(--soft) }
+  .note b { color:var(--ink) }
+
+  footer { border-top:1px solid var(--line); padding:32px 0 56px; color:var(--muted); font-size:14px }
+  footer a { color:var(--route) }
+  footer .links { margin-bottom:10px }
+  footer .links a { margin-right:16px }
+
+  @media (max-width:760px) {
+    header h1 { font-size:32px }
+    .shots { grid-template-columns:1fr 1fr }
+    .cards { grid-template-columns:1fr }
+    .compare td:first-child { width:130px; font-size:14px }
+  }
+  @media (max-width:520px) { .shots { grid-template-columns:1fr } }
 </style>
 </head>
 <body>
-  <div class="hero">
+<header>
+  <div class="wrap">
+    <img class="logo" src="./shots/icon.png" alt="KotoSense 아이콘">
     <h1>KotoSense</h1>
-    <p>한국어로는 같은데, 일본어에서는 다른 것</p>
+    <p class="tag">한국어로는 같은데, 일본어에서는 다른 것</p>
+    <p class="sub">한국어 사용자를 위한 일본어 문형 학습 앱<br>기초부터 N1까지 문형 423개 · 문제 1,563개</p>
+    <div class="badge">iOS 준비 중 · 계정 없음 · 광고 없음</div>
   </div>
-  <main>
-    <section>
-      <h2>무엇을 하는 앱인가요</h2>
-      <p>한국어로 옮기면 똑같아 보이는 일본어 문형의 <b>갈림길</b>을 보여 줍니다. 문제를 틀리면 그 선택지를 골랐을 때 뜻이 어떻게 달라지는지 알려 주고, 며칠 뒤 다른 문장으로 다시 확인합니다.</p>
-      <ul>
-        <li>기초부터 N1까지 423개 문형, 1,563문제</li>
-        <li>헷갈리는 문형을 나란히 놓는 비교 묶음</li>
-        <li>JLPT 문법 문제 형식(빈칸·★ 배열)의 실전 연습</li>
-        <li>계정 없이, 기기 안에서만 동작</li>
-      </ul>
-      <p style="margin-top:12px;color:var(--muted);font-size:14px">레벨 편성은 이 앱의 자체 기준이며 공식 JLPT 출제 범위가 아닙니다. 시험 합격을 보장하지 않습니다.</p>
-    </section>
-    <section>
-      <h2>문서</h2>
-      <ul>
-        <li><a href="./privacy.html">개인정보처리방침</a></li>
-        <li><a href="./terms.html">이용약관</a></li>
-      </ul>
-    </section>
-    <section>
-      <h2>문의</h2>
-      <p>오류 신고와 의견: <a href="mailto:motitory@gmail.com">motitory@gmail.com</a></p>
-    </section>
-  </main>
-  <footer>KotoSense by MotitoryLabs</footer>
+</header>
+
+<section class="wrap">
+  <h2>같은 한국어, 다른 일본어</h2>
+  <p class="lead">번역이 같아지는 자리에서 학습이 막힙니다. KotoSense는 그 갈림길을 한 화면에 놓습니다.</p>
+
+  <div class="compare">
+    <div class="ko">"비가 올 것 같아"</div>
+    <table>
+      <tr><td>降りそうだ</td><td>하늘을 내 눈으로 보고 곧 내릴 기색이라고 말한다</td></tr>
+      <tr><td>降るそうだ</td><td>일기예보에서 들은 말을 그대로 전한다</td></tr>
+      <tr><td>降るようだ</td><td>젖은 길 같은 눈앞의 근거로 내가 추론한다</td></tr>
+      <tr><td>降るらしい</td><td>어디선가 들은 정보로 짐작한다. 한발 물러나 있다</td></tr>
+    </table>
+  </div>
+
+  <div class="compare">
+    <div class="ko">"잠깐 기다려"</div>
+    <table>
+      <tr><td>ちょっと待て</td><td>명령형. 거칠고 단호하다. 윗사람에게는 쓰지 않는다</td></tr>
+      <tr><td>ちょっと待ちなさい</td><td>부모가 아이에게. 위에서 아래로 차분한 지시</td></tr>
+      <tr><td>ちょっと待ってください</td><td>정중한 부탁. 대부분의 상황에 무난하다</td></tr>
+      <tr><td>少々お待ちください</td><td>손님을 높이는 부탁. 가게나 전화 응대</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>화면</h2>
+  <p class="lead">실제 앱 화면입니다.</p>
+  <div class="shots">
+    <div class="shot"><img src="./shots/home.png" alt="홈 화면" loading="lazy"><p>오늘 할 것만 보여 주는 홈</p></div>
+    <div class="shot"><img src="./shots/compare.png" alt="비교 묶음 화면" loading="lazy"><p>헷갈리는 문형을 나란히</p></div>
+    <div class="shot"><img src="./shots/quiz.png" alt="문제와 해설 화면" loading="lazy"><p>선택지마다 뜻이 어떻게 달라지는지</p></div>
+    <div class="shot"><img src="./shots/item.png" alt="문형 상세 화면" loading="lazy"><p>왜 이 표현인지, 예문은 소리로</p></div>
+    <div class="shot"><img src="./shots/roadmap.png" alt="로드맵 화면" loading="lazy"><p>기초부터 N1까지 한 줄기 길</p></div>
+    <div class="shot"><img src="./shots/me.png" alt="나의 학습 화면" loading="lazy"><p>약점과 다시 볼 문제</p></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>이런 앱입니다</h2>
+  <div class="cards">
+    <div class="card">
+      <h3><span class="dot" style="background:var(--route)"></span>틀린 이유가 아니라 달라지는 뜻</h3>
+      <p>오답을 고르면 "틀렸습니다"가 아니라, 그 선택지를 골랐을 때 문장의 뜻이 어떻게 달라지는지 알려 줍니다.</p>
+    </div>
+    <div class="card">
+      <h3><span class="dot" style="background:var(--today)"></span>다른 문장으로 다시 확인</h3>
+      <p>1·3·7·14·30일 간격으로, 같은 문형을 <b>다른 문제</b>로 묻습니다. 답을 외웠는지 이해했는지 구별합니다.</p>
+    </div>
+    <div class="card">
+      <h3><span class="dot" style="background:var(--done)"></span>JLPT 문법 문제 형식의 실전 연습</h3>
+      <p>어떤 문형이 나올지 모르는 상태에서 빈칸 고르기와 ★ 문장 만들기를 섞어 풉니다. 결과는 형식별·기능별로.</p>
+    </div>
+    <div class="card">
+      <h3><span class="dot" style="background:#C93B54"></span>재촉하지 않습니다</h3>
+      <p>시간 제한도, 연속 학습일 압박도 없습니다. 복습 알림은 볼 것이 있는 날에만 하루 한 번.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>알려 드립니다</h2>
+  <div class="note">
+    <p><b>레벨 편성은 이 앱의 자체 기준</b>이며 공식 JLPT 출제 범위가 아닙니다. 주최 측은 문법 출제 목록을 공개하지 않습니다. 이 앱은 JLPT 문법 학습을 돕는 도구이며 시험 합격을 보장하지 않습니다.</p>
+    <p style="margin-top:10px"><b>첫 버전의 학습 콘텐츠는 아직 사람 검수를 거치지 않은 초안</b>입니다. 앱 안에서 '검수 전'으로 표시하고 있으며, 이상한 곳을 앱에서 바로 알려 주시면 고쳐서 업데이트합니다.</p>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="links">
+    <a href="./privacy.html">개인정보처리방침</a>
+    <a href="./terms.html">이용약관</a>
+    <a href="mailto:motitory@gmail.com">문의·오류 신고</a>
+  </div>
+  <div>KotoSense by MotitoryLabs · motitory@gmail.com</div>
+</footer>
 </body>
 </html>
